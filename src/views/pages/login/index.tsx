@@ -48,7 +48,7 @@ const LoginPage: NextPage<TProps> = () => {
   // Theme
   const theme = useTheme()
 
-  const schema = yup.object({
+  const schema = yup.object().shape({
     email: yup.string().required('The field is required').matches(EMAIL_REG, 'The field is must email type'),
     password: yup
       .string()
@@ -199,7 +199,14 @@ const LoginPage: NextPage<TProps> = () => {
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
               <Typography>Don't have an account?</Typography>
-              <Link href='/register'>Register</Link>
+              <Link
+                href='/register'
+                style={{
+                  color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                }}
+              >
+                Register
+              </Link>
             </Box>
             <Typography sx={{ textAlign: 'center', mt: 2, mb: 2 }}>Or</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
