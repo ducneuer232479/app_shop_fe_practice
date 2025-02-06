@@ -67,7 +67,9 @@ const TextFieldStyled = styled(TextField)<TextFieldProps>(({ theme }) => {
 const CustomTextField = (props: TextFieldProps) => {
   const { size = 'small', variant = 'filled', InputLabelProps, ...rests } = props
 
-  return <TextFieldStyled size={size} variant={variant} InputLabelProps={{ ...InputLabelProps }} {...rests} />
+  return (
+    <TextFieldStyled size={size} variant={variant} InputLabelProps={{ ...InputLabelProps, shrink: true }} {...rests} />
+  )
 }
 
 export default CustomTextField
