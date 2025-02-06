@@ -1,22 +1,14 @@
 // Import Next
 import { NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 
 // Import React
 import React, { useState } from 'react'
 import CustomTextField from 'src/components/text-field'
 
 // Import Mui
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Typography,
-  CssBaseline,
-  InputAdornment,
-  IconButton,
-  useTheme
-} from '@mui/material'
+import { Box, Button, Typography, CssBaseline, InputAdornment, IconButton, useTheme } from '@mui/material'
 
 // Import components
 import Icon from 'src/components/Icon'
@@ -30,20 +22,19 @@ import { EMAIL_REG, PASSWORD_REG } from 'src/configs/regex'
 // Images
 import LoginLight from '/public/images/login-light.png'
 import LoginDark from '/public/images/login-dark.png'
-import Image from 'next/image'
-import Link from 'next/link'
 
 type TProps = {}
 
 type TDefaultValue = {
   email: string
   password: string
+  confirmPassword: string
 }
 
-const LoginPage: NextPage<TProps> = () => {
+const RegisterPage: NextPage<TProps> = () => {
   // State
   const [showPassword, setShowPassword] = useState(false)
-  const [isRemember, setIsRemember] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   // Theme
   const theme = useTheme()
@@ -53,12 +44,18 @@ const LoginPage: NextPage<TProps> = () => {
     password: yup
       .string()
       .required('The field is required')
+      .matches(PASSWORD_REG, 'The password is contain character, special character, number'),
+    confirmPassword: yup
+      .string()
+      .required('The field is required')
       .matches(PASSWORD_REG, 'The password is contain character, special character, number')
+      .oneOf([yup.ref('password'), ''], 'The confirm password is must match with password')
   })
 
   const defaultValues: TDefaultValue = {
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   }
 
   const {
@@ -129,9 +126,7 @@ const LoginPage: NextPage<TProps> = () => {
                   <CustomTextField
                     required
                     fullWidth
-                    id='email'
                     label='Email Address'
-                    name='email'
                     value={value}
                     onChange={onChange}
                     onBlur={onBlur}
@@ -151,7 +146,6 @@ const LoginPage: NextPage<TProps> = () => {
                   <CustomTextField
                     required
                     fullWidth
-                    name='password'
                     label='Password'
                     value={value}
                     onChange={onChange}
@@ -179,27 +173,47 @@ const LoginPage: NextPage<TProps> = () => {
               />
             </Box>
 
-            <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name='rememberMe'
-                    checked={isRemember}
-                    onChange={e => setIsRemember(e.target.checked)}
-                    color='primary'
+            <Box sx={{ mt: 2, width: '300px' }}>
+              <Controller
+                control={control}
+                name='confirmPassword'
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <CustomTextField
+                    required
+                    fullWidth
+                    label='Confirm password'
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    placeholder='Enter confirm password'
+                    error={Boolean(errors.confirmPassword)}
+                    helperText={errors.confirmPassword?.message}
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    id='password'
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position='end' onClick={() => setShowConfirmPassword(prev => !prev)}>
+                          <IconButton>
+                            {showConfirmPassword ? (
+                              <Icon icon='material-symbols:visibility-outline' />
+                            ) : (
+                              <Icon icon='material-symbols:visibility-off-outline' />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
                   />
-                }
-                label='Remember me'
+                )}
               />
-              <Typography>Forgot password?</Typography>
             </Box>
 
             <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
-              <Typography>Don't have an account?</Typography>
-              <Link href='/register'>Register</Link>
+              <Typography>Do you have already an account?</Typography>
+              <Link href='/login'>Login</Link>
             </Box>
             <Typography sx={{ textAlign: 'center', mt: 2, mb: 2 }}>Or</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
@@ -243,4 +257,4 @@ const LoginPage: NextPage<TProps> = () => {
   )
 }
 
-export default LoginPage
+export default RegisterPage
