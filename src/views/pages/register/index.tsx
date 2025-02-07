@@ -1,16 +1,16 @@
-// Import Next
+// ** Import Next
 import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 
-// Import React
+// ** Import React
 import React, { useState } from 'react'
 import CustomTextField from 'src/components/text-field'
 
-// Import Mui
+// ** Import Mui
 import { Box, Button, Typography, CssBaseline, InputAdornment, IconButton, useTheme } from '@mui/material'
 
-// Import components
+// ** Import components
 import Icon from 'src/components/Icon'
 
 // Form
@@ -19,7 +19,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { EMAIL_REG, PASSWORD_REG } from 'src/configs/regex'
 
-// Images
+// ** Images
 import LoginLight from '/public/images/login-light.png'
 import LoginDark from '/public/images/login-dark.png'
 
@@ -32,11 +32,11 @@ type TDefaultValue = {
 }
 
 const RegisterPage: NextPage<TProps> = () => {
-  // State
+  // ** State
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  // Theme
+  // ** Theme
   const theme = useTheme()
 
   const schema = yup.object().shape({
@@ -100,7 +100,7 @@ const RegisterPage: NextPage<TProps> = () => {
         <Image
           src={theme.palette.mode === 'light' ? LoginLight : LoginDark}
           alt='Login image'
-          style={{ width: 'auto', height: 'auto' }}
+          style={{ width: 'auto', height: '530px' }}
         />
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
@@ -216,7 +216,7 @@ const RegisterPage: NextPage<TProps> = () => {
               <Link
                 href='/login'
                 style={{
-                  color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                  color: theme.palette.primary.main
                 }}
               >
                 Login

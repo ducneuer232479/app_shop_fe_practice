@@ -32,6 +32,7 @@ import LoginLight from '/public/images/login-light.png'
 import LoginDark from '/public/images/login-dark.png'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useAuth } from 'src/hooks/useAuth'
 
 type TProps = {}
 
@@ -41,12 +42,15 @@ type TDefaultValue = {
 }
 
 const LoginPage: NextPage<TProps> = () => {
-  // State
+  // ** State
   const [showPassword, setShowPassword] = useState(false)
   const [isRemember, setIsRemember] = useState(false)
 
-  // Theme
+  // ** Theme
   const theme = useTheme()
+
+  // ** Context
+  const { login } = useAuth()
 
   const schema = yup.object().shape({
     email: yup.string().required('The field is required').matches(EMAIL_REG, 'The field is must email type'),
@@ -72,7 +76,9 @@ const LoginPage: NextPage<TProps> = () => {
   })
 
   const onSubmit = (data: TDefaultValue) => {
-    console.log('data', data)
+    if (!Object.keys(errors).length) {
+      login({ ...data, rememberMe: isRemember })
+    }
   }
 
   return (
@@ -103,7 +109,7 @@ const LoginPage: NextPage<TProps> = () => {
         <Image
           src={theme.palette.mode === 'light' ? LoginLight : LoginDark}
           alt='Login image'
-          style={{ width: 'auto', height: 'auto' }}
+          style={{ width: 'auto', height: '530px' }}
         />
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
@@ -202,7 +208,7 @@ const LoginPage: NextPage<TProps> = () => {
               <Link
                 href='/register'
                 style={{
-                  color: theme.palette.mode === 'light' ? theme.palette.common.black : theme.palette.common.white
+                  color: theme.palette.primary.main
                 }}
               >
                 Register
