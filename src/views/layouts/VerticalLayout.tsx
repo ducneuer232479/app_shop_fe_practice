@@ -3,15 +3,15 @@ import * as React from 'react'
 // ** Next
 import { NextPage } from 'next'
 
+// ** Mui
 import { styled } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import Toolbar from '@mui/material/Toolbar'
-import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 
-// ** Layout
-import { mainListItems, secondaryListItems } from './listItem'
+// ** Components
+import ListVerticalLayout from './ListVerticalLayout'
 
 type TProps = {
   open: boolean
@@ -58,11 +58,7 @@ const VerticalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
         <IconButton onClick={toggleDrawer}>{/* <ChevronLeftIcon /> */}</IconButton>
       </Toolbar>
       <Divider />
-      <List component='nav'>
-        {mainListItems}
-        <Divider sx={{ my: 1 }} />
-        {secondaryListItems}
-      </List>
+      <ListVerticalLayout />
     </Drawer>
   )
 }
