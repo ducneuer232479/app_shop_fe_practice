@@ -12,6 +12,7 @@ import IconButton from '@mui/material/IconButton'
 
 // ** Components
 import ListVerticalLayout from './ListVerticalLayout'
+import IconifyIcon from 'src/components/Icon'
 
 type TProps = {
   open: boolean
@@ -55,7 +56,9 @@ const VerticalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
           px: [1]
         }}
       >
-        <IconButton onClick={toggleDrawer}>{/* <ChevronLeftIcon /> */}</IconButton>
+        <IconButton onClick={toggleDrawer}>
+          <IconifyIcon icon='mingcute:left-line' />
+        </IconButton>
       </Toolbar>
       <Divider />
       <ListVerticalLayout />
