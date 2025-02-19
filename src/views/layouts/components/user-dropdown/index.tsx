@@ -1,6 +1,10 @@
 // ** React
 import React from 'react'
 
+// ** Next
+import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
+
 // ** Mui
 import Box from '@mui/material/Box'
 import Avatar from '@mui/material/Avatar'
@@ -10,9 +14,12 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
+
+// ** Hook
 import { useAuth } from 'src/hooks/useAuth'
-import Image from 'next/image'
-import IconifyIcon from '../../../../components/Icon'
+
+// ** Component
+import Icon from 'src/components/Icon'
 
 type TProps = {}
 
@@ -24,6 +31,8 @@ const UserDropdown = (props: TProps) => {
 
   const open = Boolean(anchorEl)
 
+  const { t } = useTranslation()
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -34,7 +43,7 @@ const UserDropdown = (props: TProps) => {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title='Account settings'>
+        <Tooltip title={t('Account')}>
           <IconButton
             onClick={handleClick}
             size='small'
@@ -47,7 +56,7 @@ const UserDropdown = (props: TProps) => {
               {user?.avatar ? (
                 <Image src={user?.avatar || ''} alt='' style={{ height: 'auto', width: 'auto' }} />
               ) : (
-                <IconifyIcon icon='ph:user-thin' />
+                <Icon icon='ph:user-thin' />
               )}
             </Avatar>
           </IconButton>
