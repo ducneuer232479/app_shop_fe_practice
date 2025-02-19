@@ -77,6 +77,7 @@ const AxiosInterceptor: FC<TAxiosInterceptor> = ({ children }) => {
                   handleRedirectLogin(router, setUser)
                 }
               })
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               .catch(e => {
                 handleRedirectLogin(router, setUser)
               })

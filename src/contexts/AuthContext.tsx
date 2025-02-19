@@ -96,6 +96,7 @@ const AuthProvider = ({ children }: Props) => {
   }
 
   const handleLogout = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     logoutAuth().then(res => {
       setUser(null)
       clearLocalUserData()

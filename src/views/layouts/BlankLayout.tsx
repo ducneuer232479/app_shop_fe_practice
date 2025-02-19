@@ -11,6 +11,7 @@ type TProps = {
   children: React.ReactNode
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   height: '100vh'
 }))
