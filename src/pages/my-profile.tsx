@@ -1,13 +1,16 @@
 // ** Next
 import { NextPage } from 'next'
+import { ReactNode } from 'react'
+import LayoutNotApp from 'src/views/layouts/LayoutNotApp'
 
 // ** Views
-import RegisterPage from 'src/views/pages/register'
+import MyProfilePage from 'src/views/pages/my-profile'
 
 type TProps = {}
 
 const Index: NextPage<TProps> = () => {
-  return <RegisterPage />
+  return <MyProfilePage />
 }
 
 export default Index
+Index.getLayout = (page: ReactNode) => <LayoutNotApp>{page}</LayoutNotApp>
