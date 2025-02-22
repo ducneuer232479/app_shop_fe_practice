@@ -110,7 +110,7 @@ const UserDropdown = (props: TProps) => {
           {user?.firstName} {user?.middleName} {user?.lastName}
         </MenuItem>
         <MenuItem onClick={handleNavigateMyProfile}>
-          <Avatar /> {t('my_profile')}
+          <Avatar /> {t('My_profile')}
         </MenuItem>
         <MenuItem onClick={logout}>
           <ListItemIcon></ListItemIcon>
